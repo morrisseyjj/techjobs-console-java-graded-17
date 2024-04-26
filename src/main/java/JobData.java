@@ -17,7 +17,8 @@ public class JobData {
 
     private static final String DATA_FILE = "src/main/resources/job_data.csv";
     private static boolean isDataLoaded = false;
-
+// An ArrayList that stores an HashMap, and the HashMap have String keys and String Values
+    // Each Job is itself a HashMap. (ArrayList of Jobs in Hashmap [ {job1}, {job2} ]
     private static ArrayList<HashMap<String, String>> allJobs;
 
     /**
@@ -72,9 +73,10 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-
-            String aValue = row.get(column);
-
+// !!!! Task 3
+//            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
+// !!!!
             if (aValue.contains(value)) {
                 jobs.add(row);
             }
@@ -93,14 +95,28 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
+//!!!!!! -tip will look similar to findByColumnAndValue
+        // TODO - implement this method - Return jobs not null
+     ArrayList<HashMap<String,String>> newJobs = new ArrayList<>();
 
-        // TODO - implement this method
-        return null;
+     for (HashMap<String, String> job : allJobs){
+         for (String row : job.values()) {
+             if (row.toLowerCase().contains(value)) { // .toLowerCase is part of task 3
+                 newJobs.add(job);
+                 break;
+             }
+         }
+     }
+     //   return null;
+        return newJobs;
     }
+//!!!!!!
+
 
     /**
      * Read in data from a CSV file and store it in a list
      */
+    // Below do not change. will understand it more, later
     private static void loadData() {
 
         // Only load data once
